@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>upload</title>
+</head>
+<body>
+    <h1>demo</h1>
+    <form action="" enctype='multipart/form-data' method='POST'>
+        <input type="file" name="file" style="margin-top:20px;"/>
+        <input type="submit" value="upload" class="button-new" style="margin-top:15px;"/>
+    </form>
+    <img src="{{ url_for('static', filename= './images/processed.jpg',_t=val1) }}" width="400" height="400" alt="No image to show."/>
+</body>
+</html>

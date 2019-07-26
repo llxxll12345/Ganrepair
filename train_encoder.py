@@ -113,8 +113,13 @@ def traingan(epochs = 20, batch_size = 32):
     show_img()
 
 if __name__ == "__main__":
-    args = {"bad":"output", "good":"label", "epochs":20, "batch_size":32}
-    files = os.listdir(args["bad"])
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-e", "--epochs", default=20, help="type")
+    parser.add_argument("-b", "--batch_size", default=32, help="batchsize")
+    args = vars(parser.parse_args())
+    
+    myargs = {"bad":"output", "good":"label", "epochs":args["epohs"], "batch_size":args["batchsize"]}
+    files = os.listdir(myargs["bad"])
     global X, Y
     cnt = 0
 
@@ -127,8 +132,8 @@ if __name__ == "__main__":
         print("Loading {}/{} ...".format(str(cnt), len(files)), end="\r")
         #os.system('clear')
         if fileName[-3:] == 'jpg' or fileName[-3:] == 'png':
-            badimg = cv2.imread(os.path.join(args["bad"], fileName))
-            goodimg = cv2.imread(os.path.join(args["good"], fileName))
+            badimg = cv2.imread(os.path.join(myargs["bad"], fileName))
+            goodimg = cv2.imread(os.path.join(myargs["good"], fileName))
             #print(fileName)
             temp_X.append(badimg)
             temp_Y.append(goodimg)
@@ -143,4 +148,4 @@ if __name__ == "__main__":
     X = np.array(X)
     Y = np.array(Y)
     print(X.shape, Y.shape)
-    traingan(epochs=int(args["epochs"]), batch_size=int(args["batch_size"]))
+    traingan(epochs=int(myargs["epochs"]), batch_size=int(myargs["batch_size"]))
